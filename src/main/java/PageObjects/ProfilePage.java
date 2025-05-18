@@ -1,5 +1,6 @@
 package PageObjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,18 +29,22 @@ public class ProfilePage {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
+    @Step("Нажатие кнопки Выход")
     public void clickLogoutButton () {
         waitAndClick(logoutButton);
     }
 
+    @Step("Нажатие кнопки Конструктор")
     public void clickConstructorButton() {
         waitAndClick(constructorButton);
     }
 
+    @Step("Нажатие на логотип")
     public void clickHeaderLogo () {
         waitAndClick(headerLogo);
     }
 
+    @Step("Проверка видимости кнопки Выход")
     public boolean isLogoutButtonDisplayed() {
         return isElementVisible(logoutButton);
     }

@@ -1,5 +1,6 @@
 package PageObjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,7 +23,6 @@ public class MainPage {
     private final By activeSaucesSection = By.xpath("//div[contains(@class, 'current')]//span[text()='Соусы']");
     private final By activeFillingsSection = By.xpath("//div[contains(@class, 'current')]//span[text()='Начинки']");
 
-    private final By headerLogo = By.xpath("//div[contains(@class, 'headerLogo')]");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -33,53 +33,48 @@ public class MainPage {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
-    public void waitForPageLoaded() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(loginButton));
-    }
-
     private boolean isElementVisible(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
     }
 
+    @Step("Нажатие кнопки Войти")
     public void clickLoginButton() {
         waitAndClick(loginButton);
     }
 
+    @Step("Нажатие кнопки Личный кабинет")
     public void clickProfileButton() {
         waitAndClick(profileButton);
     }
 
+    @Step("Нажатие раздела Булки")
     public void clickBunsSection() {
         waitAndClick(bunsSection);
     }
 
+    @Step("Нажатие раздела Соусы")
     public void clickSaucesSection() {
         waitAndClick(saucesSection);
     }
 
+    @Step("Нажатие раздела Начинки")
     public void clickFillingsSection() {
         waitAndClick(fillingsSection);
     }
 
-
+    @Step("Активен ли раздел Булки")
     public boolean isBunsSectionActive() {
         return isElementVisible(activeBunsSection);
     }
 
+    @Step("Активен ли раздел Соусы")
     public boolean isSaucesSectionActive() {
         return isElementVisible(activeSaucesSection);
     }
 
+    @Step("Активен ли раздел Начинки")
     public boolean isFillingsSectionActive() {
         return isElementVisible(activeFillingsSection);
-    }
-
-    public void clickHeaderLogo() {
-        waitAndClick(headerLogo);
-    }
-
-    public boolean isLoginButtonDisplayed() {
-        return isElementVisible(loginButton);
     }
 
 }

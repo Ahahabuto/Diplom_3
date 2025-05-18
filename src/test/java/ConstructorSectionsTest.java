@@ -1,41 +1,22 @@
 import PageObjects.MainPage;
-import io.qameta.allure.Step;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertTrue;
 
-@RunWith(Parameterized.class)
 public class ConstructorSectionsTest {
     private WebDriver driver;
-    private final String browserName;
     private final String URL = "https://stellarburgers.nomoreparties.site";
 
-    public ConstructorSectionsTest(String browserName) {
-        this.browserName = browserName;
-    }
-
-    @Parameterized.Parameters(name = "{0} browser")
-    public static Object[][] browsers() {
-        return new Object[][]{
-                {"chrome"},
-                {"yandex"}
-        };
-    }
-
     @Before
-    @Step
     public void setUp() {
-        driver = Browsers.createWebDriver(browserName);
+        driver = BrowserFactory.createWebDriver();
         driver.get(URL);
     }
 
     @Test
-    @Step("Переход в булки")
     public void shouldGoToBunsSection() {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickFillingsSection();
@@ -45,7 +26,6 @@ public class ConstructorSectionsTest {
     }
 
     @Test
-    @Step("переход в соусы")
     public void shouldGoToSaucesSection() {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickSaucesSection();
@@ -54,7 +34,6 @@ public class ConstructorSectionsTest {
     }
 
     @Test
-    @Step("Переход в начинки")
     public void shouldGoToFillingsSection() {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickFillingsSection();
@@ -62,7 +41,6 @@ public class ConstructorSectionsTest {
         assertTrue("Раздел начинки активен", mainPage.isFillingsSectionActive());
     }
     @After
-    @Step
     public void tearDown() {
         if (driver != null) {
             driver.quit();

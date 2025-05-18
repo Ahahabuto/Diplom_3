@@ -1,5 +1,6 @@
 package PageObjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -36,30 +37,37 @@ public class RegistrationPage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
     }
 
+    @Step("Ввод имени")
     public void setName(String name) {
         waitAndSendKeys(nameInput, name);
     }
 
+    @Step("Ввод email")
     public void setEmail(String email) {
         waitAndSendKeys(emailInput, email);
     }
 
+    @Step("Ввод пароля")
     public void setPassword(String password) {
         waitAndSendKeys(passwordInput, password);
     }
 
+    @Step("Нажатие кнопки зарегистрироваться")
     public void clickRegisterButton() {
         waitAndClick(registerButton);
     }
 
+    @Step("Нажатие ссылки Войти")
     public void clickAuthLink() {
         waitAndClick(authLink);
     }
 
+    @Step("Проверка видимости сообщения об ошибки в написании пароля")
     public boolean isPasswordErrorDisplayed() {
         return isElementVisible(passwordError);
     }
 
+    @Step("Проверка видимости ссылки Войти")
     public boolean isLoginLinkDisplayed() {
         return isElementVisible(authLink);
     }

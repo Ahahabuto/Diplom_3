@@ -28,6 +28,7 @@ public class UserApi {
                 .delete(USER_ENDPOINT);
     }
 
+    @Step("Авторизация пользователя")
     public static Response login(UserData user) {
         return given()
                 .spec(Specifications.requestSpec())
