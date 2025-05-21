@@ -17,6 +17,7 @@ public class RegistrationTest {
     private final String URL = "https://stellarburgers.nomoreparties.site";
     private UserData user;
     private UserData shortPasswordUser;
+    private boolean isUserRegistered = false;
 
 
     @Before
@@ -46,11 +47,8 @@ public class RegistrationTest {
         registrationPage.clickRegisterButton();
 
         assertTrue("Появилась кнопка входа", registrationPage.isLoginLinkDisplayed());
+        isUserRegistered = true;
 
-        accessToken = UserApi.register(user)
-                .then()
-                .log().all()
-                .extract().path("accessToken");
     }
 
     @Test
@@ -72,11 +70,24 @@ public class RegistrationTest {
 
     @After
     public void tearDown() {
-        if (accessToken != null) {
-            UserApi.delete(accessToken);
-        }
-        if (driver != null) {
-            driver.quit();
+
+        try {
+            if (isUserRegistered && user != null) {
+                accessToken = UserApi.login(user)
+                        .then()
+                        .statusCode(200)
+                        .extract().path("accessToken");
+
+                if (accessToken != null) {
+                    UserApi.delete(accessToken);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка в tearDown: " +e.getMessage());
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 }
